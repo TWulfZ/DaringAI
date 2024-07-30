@@ -1,0 +1,33 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.drag-none {
+  -webkit-user-drag: none;
+  -khtml-user-drag: none;
+  -moz-user-drag: none;
+  -o-user-drag: none;
+  user-drag: none;
+}
+
+::selection {
+  background-color: #10b981;
+}
+
+button.icon {
+  background: none;
+  outline: none;
+  border: none;
+  cursor: pointer;
+}
+
+/* Code */
+.code {
+  position: relative;
+}
+.code .copy-icon {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  z-index: 5;
+}

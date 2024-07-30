@@ -1,0 +1,6 @@
+{
+  "title": "Titulo",
+  "content": "Texto",
+  "language": "tsx",
+  "code": "const [count, setCount] = useState(0);"
+}
