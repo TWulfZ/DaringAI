@@ -1,6 +1,42 @@
 {
-  "title": "Titulo",
-  "content": "Texto",
-  "language": "tsx",
-  "code": "const [count, setCount] = useState(0);"
+  "id": "nestjs-api-basics",
+  "title": "¿Cómo crear una API simple en NestJS?",
+  "cardsExample": [
+    {
+      "id": "nestjs-module",
+      "title": "Crear un Módulo en NestJS",
+      "content": "Un módulo en NestJS organiza el código relacionado en una unidad. Puedes crear un módulo usando el siguiente comando:",
+      "language": "bash",
+      "code": "nest generate module module-name"
+    },
+    {
+      "id": "nestjs-controller",
+      "title": "Crear un Controller en NestJS",
+      "content": "Un controller maneja las solicitudes HTTP. Puedes crear un controller usando el siguiente comando:",
+      "language": "bash",
+      "code": "nest generate controller controller-name"
+    },
+    {
+      "id": "nestjs-service",
+      "title": "Crear un Service en NestJS",
+      "content": "Un service contiene la lógica de negocio. Puedes crear un service usando el siguiente comando:",
+      "language": "bash",
+      "code": "nest generate service service-name"
+    },
+    {
+      "id": "nestjs-crud",
+      "title": "Implementar un CRUD básico",
+      "content": "Para implementar un CRUD básico, necesitas un controller, un service y un módulo que interactúen entre sí. Aquí te muestro cómo definirlos:",
+      "language": "typescript",
+      "code": "// controller.ts\nimport { Controller, Get, Post, Body, Param, Delete } from '@nestjs/common';\nimport { ServiceNameService } from './service-name.service';\n\n@Controller('items')\nexport class ItemsController {\n  constructor(private readonly service: ServiceNameService) {}\n\n  @Get()\n  findAll() {\n    return this.service.findAll();\n  }\n\n  @Post()\n  create(@Body() createDto: CreateDto) {\n    return this.service.create(createDto);\n  }\n\n  @Delete(':id')\n  remove(@Param('id') id: string) {\n    return this.service.remove(id);\n  }\n}\n\n// service.ts\nimport { Injectable } from '@nestjs/common';\n\n@Injectable()\nexport class ServiceNameService {\n  private readonly items = [];\n\n  findAll() {\n    return this.items;\n  }\n\n  create(createDto) {\n    this.items.push(createDto);\n    return createDto;\n  }\n\n  remove(id: string) {\n    this.items = this.items.filter(item => item.id !== id);\n    return { deleted: true };\n  }\n}\n\n// module.ts\nimport { Module } from '@nestjs/common';\nimport { ItemsController } from './items.controller';\nimport { ServiceNameService } from './service-name.service';\n\n@Module({\n  controllers: [ItemsController],\n  providers: [ServiceNameService],\n})\nexport class ItemsModule {}"
+    }
+  ],
+  "cardsChallenge": [
+    {
+      "id": "nestjs-api-challenge",
+      "title": "Desafío API básica",
+      "content": "Crea una API en NestJS que permita gestionar una entidad de ejemplo, como 'productos'. Debe incluir operaciones básicas de creación, lectura y eliminación.",
+      "language": "typescript"
+    }
+  ]
 }

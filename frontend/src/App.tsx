@@ -4,9 +4,11 @@ import { AnimatePresence } from "framer-motion";
 
 function App() {
   return (
+    <div className="h-screen w-screen bg-gradient-to-b from-gray-900 bg-primary">
     <AnimatePresence mode="wait">
       <RouterProvider router={router} />
     </AnimatePresence>
+    </div>
   );
 }
 

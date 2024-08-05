@@ -1,0 +1,54 @@
+{
+  "id": "1",
+  "title": "Crear un controlador en NestJS",
+  "cardsExample": [
+  {
+  "id": "1.1",
+  "title": "Crear un nuevo proyecto",
+  "content": "Crea un nuevo proyecto en NestJS utilizando el comando `nest new my-app`",
+  "language": "bash",
+  "code": "nest new my-app"
+  },
+  {
+  "id": "1.2",
+  "title": "Crear un controlador",
+  "content": "Crea un nuevo controlador utilizando el comando `nest generate controller`",
+  "language": "bash",
+  "code": "nest generate controller cats"
+  },
+  {
+  "id": "1.3",
+  "title": "Definir la ruta del controlador",
+  "content": "Define la ruta del controlador utilizando el decorador `@Controller`",
+  "language": "typescript",
+  "code": "import { Controller, Get } from '@nestjs/common';\n\n@Controller('cats')\nexport class CatsController {\n}\n"
+  },
+  {
+  "id": "1.4",
+  "title": "Definir la acción del controlador",
+  "content": "Define la acción del controlador utilizando el decorador `@Get`",
+  "language": "typescript",
+  "code": "import { Controller, Get } from '@nestjs/common';\n\n@Controller('cats')\nexport class CatsController {\n @Get()\n findAll(): string {\n  return 'This action returns all cats';\n }\n}\n"
+  }
+  ],
+  "cardsChallenge": [
+  {
+  "id": "1.5",
+  "title": "Crear un controlador con múltiples acciones",
+  "content": "Crea un controlador con múltiples acciones utilizando los decoradores `@Get`, `@Post`, `@Put` y `@Delete`",
+  "language": "typescript"
+  },
+  {
+  "id": "1.6",
+  "title": "Crear un controlador con parámetros",
+  "content": "Crea un controlador con parámetros utilizando el decorador `@Param`",
+  "language": "typescript"
+  },
+  {
+  "id": "1.7",
+  "title": "Crear un controlador con respuesta JSON",
+  "content": "Crea un controlador que devuelve una respuesta en formato JSON utilizando el decorador `@Res`",
+  "language": "typescript"
+  }
+  ]
+  }

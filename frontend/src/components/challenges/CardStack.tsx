@@ -1,13 +1,13 @@
 import { useState } from "react";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/16/solid";
-import type { CardProps as CardData } from "./Card";
-import Card from "./Card";
+import Card, { CardProps as ECardProps } from "./Card";
 
-interface CascadingCardsProps {
-  cards: CardData[];
+interface CardStackExample {
+  cards: ECardProps[];
+  boardId: string;
 }
 
-const CardStack = ({ cards }: CascadingCardsProps) => {
+const CardStack = ({ cards, boardId }: CardStackExample) => {
   const [activeIndex, setActiveIndex] = useState(1);
 
   const handlePrev = () => {
@@ -32,38 +32,37 @@ const CardStack = ({ cards }: CascadingCardsProps) => {
 
     switch (style) {
       case "active":
-        return "z-30 scale-100 opacity-100";
+        return "z-30 scale-100";
       case "left":
-        return "z-20 -translate-x-16 scale-95 opacity-70";
+        return "z-20 -translate-x-16 scale-90 blur-[2px]";
       case "right":
-        return "z-20 translate-x-16 scale-95 opacity-70";
+        return "z-20 translate-x-16 scale-90 blur-[2px]";
       case "inactive":
-        return "z-10 scale-90 opacity-50";
+        return "z-10 scale-90 opacity-50 blur-[2px]";
     }
   };
 
   return (
-    <div className="relative flex h-1/2 w-full items-center justify-center px-24">
+    <div className="relative flex h-3/6 w-full items-center justify-center px-24">
       {cards.map((card, index) => (
         <Card
+          link={`/${boardId}/${card.id}`}
           key={index}
           title={card.title}
           language={card.language}
-          code={card.code}
           content={card.content}
-          
           className={`absolute transition-all duration-300 ease-in-out ${getCardStyle(index)}`}
         />
       ))}
       <button
         onClick={handlePrev}
-        className="absolute left-4 z-40 h-full w-14 2xl:w-20 opacity-0 hover:opacity-70 transition-all duration-300 ease-in-out"
+        className="absolute left-4 z-40 h-4/6 w-14 opacity-0 transition-all duration-300 ease-in-out hover:opacity-70 2xl:w-20"
       >
         <ChevronLeftIcon />
       </button>
       <button
         onClick={handleNext}
-        className="absolute right-4 z-40 h-full w-14 2xl:w-20 opacity-0 hover:opacity-70 transition-all duration-300 ease-in-out"
+        className="absolute right-4 z-40 h-full w-14 opacity-0 transition-all duration-300 ease-in-out hover:opacity-70 2xl:w-20"
       >
         <ChevronRightIcon />
       </button>

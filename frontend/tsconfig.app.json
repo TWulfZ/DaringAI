@@ -13,9 +13,9 @@
     "paths": {
       "@pages/*": ["pages/*"],
       "@routes/*": ["routes/*", "routes/index.tsx"],
+      "@services/*": ["services/*"],
       "@components/*": ["components/*"],
       "@hooks/*": ["hooks/*"],
-      "@sidebar/*": ["components/sidebar/*"],
       "@context/*": ["context/*"],
       "@utils/*": ["utils/*"],
       "@assets/*": ["assets/*"],
