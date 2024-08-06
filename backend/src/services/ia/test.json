@@ -1,0 +1,40 @@
+{
+  "title": "NestJS - Creating a Controler",
+  "cardsExample": [
+    {
+      "title": "Controller basic structure",
+      "content": "",
+      "language": "typescript",
+      "code": "import { Controller, Get } from '@nestjs/common';\n\n@Controller('cats')\nexport class CatsController {\n\n @Get()\n findAll(): string {\n  return 'This action returns all cats';\n }"
+    },
+    {
+      "title": "Handler function",
+      "content": "In a controller, the handler functions are the ones that manage the request and response of the route. They can return any type of data, such as a string, an array of objects, or even a HTTP response.",
+      "language": "typescript",
+      "code": "import { Controller, Get } from '@nestjs/common';\n\n@Controller('cats')\nexport class CatsController {\n\n @Get()\n findAll(): string {\n  return 'This action returns all cats';\n }\n"
+    },
+    {
+      "title": "Using multiple routes",
+      "content": "With NestJS, you can have multiple routes in a controller by using different handlers functions.",
+      "language": "typescript",
+      "code": "import { Controller, Get, Post } from '@nestjs/common';\n\n@Controller('cats')\nexport class CatsController {\n\n @Get()\n findAll(): string {\n  return 'This action returns all cats';\n }\n @Post()\n addCat(): string {\n  return 'This action adds a new cat';\n }\n"
+    }
+  ],
+  "cardsChallenge": [
+    {
+      "title": "Create a controller to retrieve all cats",
+      "content": "Create a controller that retrieves all cats from a database",
+      "language": "typescript"
+    },
+    {
+      "title": "Create a controller to add a new cat",
+      "content": "Create a controller that adds a new cat to a database",
+      "language": "typescript"
+    },
+    {
+      "title": "Create a controller to retrieve a specific cat",
+      "content": "Create a controller that retrieves a specific cat from a database by its id",
+      "language": "typescript"
+    }
+  ]
+}

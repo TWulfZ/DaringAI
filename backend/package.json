@@ -1,0 +1,26 @@
+{
+  "name": "daringai-backend",
+  "module": "index.ts",
+  "type": "module",
+  "scripts": {
+    "dev": "bun --hot src/index.ts"
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
+    "@types/express": "^4.17.21"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "@ai-sdk/openai": "^0.0.40",
+    "@prisma/client": "^5.17.0",
+    "ai": "^3.3.0",
+    "dotenv": "^16.4.5",
+    "endent": "^2.1.0",
+    "express": "^4.19.2",
+    "prisma": "^5.17.0",
+    "winston": "^3.13.1",
+    "winston-daily-rotate-file": "^5.0.0"
+  }
+}

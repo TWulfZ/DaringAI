@@ -1,0 +1,41 @@
+{
+  "compilerOptions": {
+    "composite": true,
+    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.tsbuildinfo",
+    "target": "ES2020",
+    "useDefineForClassFields": true,
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    "module": "ESNext",
+    "skipLibCheck": true,
+
+    /* Base path */
+    "baseUrl": "./src",
+    "paths": {
+      "@controllers/*": ["controllers/users/*", "controllers/examples/*", "controllers/challenges/*", "controllers/boards/*"],
+      "@db/*": ["db/*"],
+      "@managers/*": ["managers/*"],
+      "@middlewares/*": ["middlewares/*"],
+      "@package": ["../package.json"],
+      "@routes/*": ["routes/*"],
+      "@utils/*": ["utils/*"],
+      "@services/*": ["services/*"],
+      "@winston/*": ["services/winston/*"]
+    },
+    /* Bundler mode */
+    "moduleResolution": "bundler",
+    "allowImportingTsExtensions": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "moduleDetection": "force",
+    "noEmit": true,
+    "jsx": "react-jsx",
+
+    /* Linting */
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true
+  },
+  "exclude": ["node_modules", "build", "logs"],
+  "include": ["src/**/*.ts", "src/**/*.yaml"]
+}
