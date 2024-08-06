@@ -1,8 +1,6 @@
 import { createOpenAI } from "@ai-sdk/openai";
-import { openai } from "@ai-sdk/openai";
 import logger from "@managers/logger.manager";
-import { z } from "zod";
-import { generateObject, jsonSchema, streamObject } from "ai";
+import { generateObject, jsonSchema } from "ai";
 import endent from "endent";
 
 if (!process.env.GROQ_API_KEY) {
@@ -14,28 +12,7 @@ const groq = createOpenAI({
   apiKey: process.env.GROQ_API_KEY,
 });
 
-const schema = {
-  title: "Controladores en NestJS",
-  cardsExample: [
-    {
-      title: "Creando un controlador en NestJS?",
-      content:
-        "Los controladores en NestJS se utilizan para manejar las rutas y las solicitudes HTTP. Puedes crear un controlador con el siguiente código:",
-      language: "typescript",
-      code: "import { Controller, Get } from '@nestjs/common';\n\n@Controller('cats')\nexport class CatsController {\n @Get()\n findAll(): string {\n  return 'This action returns all cats';\n }\n}",
-    },
-  ],
-  cardsChallenge: [
-    {
-      title: "Controller en NestJS Challenge",
-      content:
-        "Crea un controlador en NestJS que maneje una ruta personalizada y devuelva un objeto JSON.",
-      language: "typescript",
-    },
-  ],
-};
-
-const boardSchema = jsonSchema<{
+type BoardSchema = {
   title: string;
   cardsExample: {
     title: string;
@@ -49,37 +26,39 @@ const boardSchema = jsonSchema<{
     content: string;
     language: string;
   }[];
-}>({
-  type: 'object',
+};
+
+const boardSchema = jsonSchema<BoardSchema>({
+  type: "object",
   properties: {
-    title: { type: 'string' },
+    title: { type: "string" },
     cardsExample: {
-      type: 'array',
+      type: "array",
       items: {
-        type: 'object',
+        type: "object",
         properties: {
-          title: { type: 'string' },
-          content: { type: 'string' },
-          language: { type: 'string' },
-          code: { type: 'string' },
+          title: { type: "string" },
+          content: { type: "string" },
+          language: { type: "string" },
+          code: { type: "string" },
         },
-        required: ['title', 'content', 'language', 'code'],
+        required: ["title", "content", "language", "code"],
       },
     },
     cardsChallenge: {
-      type: 'array',
+      type: "array",
       items: {
-        type: 'object',
+        type: "object",
         properties: {
-          title: { type: 'string' },
-          content: { type: 'string' },
-          language: { type: 'string' },
+          title: { type: "string" },
+          content: { type: "string" },
+          language: { type: "string" },
         },
-        required: ['title', 'content', 'language'],
+        required: ["title", "content", "language"],
       },
     },
   },
-  required: ['title', 'cardsExample', 'cardsChallenge'],
+  required: ["title", "cardsExample", "cardsChallenge"],
 });
 
 // Allow streaming responses up to 30 seconds
@@ -87,46 +66,21 @@ export const maxDuration = 30;
 
 const system = endent`
 Eres una IA para generar planes de estudio de programación.
-En "title" utiliza el prompt que use el usuario y en base a eso crea el plan de estudio.
-**Respondeme unicamente en formato .json** siguiendo esta estructura de ejemplo
-(debes generar 3 cards en cada array de cards, si crees que son necesarias mas genera mas)
-`
+En "title" utiliza el prompt que use el usuario y en base a eso crea el plan de estudio. Siguiendo esta estructura de ejemplo
+(debes generar 3 cards en cada array de cards, genera mas cards si crees que son necesarias)
+En "language" debes especificar el lenguaje de programación como : "typescript" | "java" | "python" ...
+En "code" debes escribir codigo con saltos de linea si es necesario como este: "import { Controller, Get } from '@nestjs/common';\n\n@Controller('cats')\nexport class CatsController {\n @Get()\n findAll(): string {\n  return 'This action returns all cats';\n }\n"
+`;
 
-export async function genBoard(prompt: string) {
+export async function genBoard(prompt: string): Promise<BoardSchema> {
   const { object: data } = await generateObject({
     model: groq("llama-3.1-70b-versatile"),
     system: system,
     prompt: prompt,
     temperature: 0,
     maxTokens: 2048,
-    schema: boardSchema
+    schema: boardSchema,
   });
-  
-  console.log(data);
-  
-}
 
-export async function getRecipe(recipe_name: string) {
-  // Pretty printing improves completion results.
-  const jsonSchema = JSON.stringify(schema, null, 4);
-  const chat_completion = await groq.chat.completions.create({
-    messages: [
-      {
-        role: `Eres una IA para generar planes de estudio de programación.
-        En "title" utiliza el prompt que use el usuario y en base a eso crea el plan de estudio.`,
-        content: `Eres una IA para generar planes de estudio de programación. En "title" utiliza el prompt que use el usuario y en base a eso crea el plan de estudio. El plan de estudio debe ser en JSON y debe seguir el esquema: ${jsonSchema}.`,
-      },
-      {
-        role: "user",
-        content: `Fetch a recipe for ${recipe_name}`,
-      },
-    ],
-    model: "llama3-8b-8192",
-    temperature: 0,
-    stream: false,
-    response_format: { type: "json_object" },
-  });
-  return Object.assign(JSON.parse(chat_completion.choices[0].message.content));
+  return data;
 }
-
-genBoard("Puedes enseñarme como hacer enemigos de LUA para roblox?")

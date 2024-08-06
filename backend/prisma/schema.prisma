@@ -1,9 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -13,52 +7,44 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Board {
-  id             Int              @id @default(autoincrement())
-  title          String
-  author         User             @relation(fields: [author_id], references: [id])
-  author_id      String
-  cardsExample   CardExample[]
-  cardsChallenge CardChallenge[]
-  created_at     DateTime         @default(now())
-  updated_at     DateTime         @updatedAt
-
-  @@map("boards")
+model boards {
+  board_id        String            @id @default(uuid()) @db.Uuid
+  title           String
+  author_id       String            @db.Uuid
+  created_at      DateTime          @default(now())
+  updated_at      DateTime
+  author          users             @relation(fields: [author_id], references: [user_id])
+  cards_example   cards_example[]
+  cards_challenge cards_challenge[]
 }
 
-model CardExample {
-  id        Int      @id @default(autoincrement())
-  title     String
-  content   String
-  language  String
-  code      String
-  board     Board    @relation(fields: [board_id], references: [id])
-  board_id  Int
+model cards_example {
+  example_id String   @id @default(uuid()) @db.Uuid
+  title      String
+  content    String
+  language   String
+  code       String
+  board_id   String   @db.Uuid
   created_at DateTime @default(now())
-  updated_at DateTime @updatedAt
-
-  @@map("cards_example")
+  updated_at DateTime
+  board      boards   @relation(fields: [board_id], references: [board_id])
 }
 
-model CardChallenge {
-  id        Int      @id @default(autoincrement())
-  title     String
-  content   String
-  language  String
-  board     Board    @relation(fields: [board_id], references: [id])
-  board_id  Int
-  created_at DateTime @default(now())
-  updated_at DateTime @updatedAt
-
-  @@map("cards_challenge")
+model cards_challenge {
+  challenge_id String   @id @default(uuid()) @db.Uuid
+  title        String
+  content      String
+  language     String
+  board_id     String   @db.Uuid
+  created_at   DateTime @default(now())
+  updated_at   DateTime
+  board        boards   @relation(fields: [board_id], references: [board_id])
 }
 
-model User {
-  id        String   @id @default(dbgenerated("auth.uid()")) @db.Uuid
-  email     String?  @unique
-  boards    Board[]
+model users {
+  email      String?  @unique
   created_at DateTime @default(now())
-  updated_at DateTime @updatedAt
-
-  @@map("users")
+  updated_at DateTime
+  user_id    String   @id @default(dbgenerated("auth.uid()")) @db.Uuid
+  boards     boards[]
 }
