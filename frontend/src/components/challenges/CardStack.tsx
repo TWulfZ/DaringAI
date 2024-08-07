@@ -4,10 +4,9 @@ import Card, { CardProps as ECardProps } from "./Card";
 
 interface CardStackExample {
   cards: ECardProps[];
-  boardId: string;
 }
 
-const CardStack = ({ cards, boardId }: CardStackExample) => {
+const CardStack = ({ cards }: CardStackExample) => {
   const [activeIndex, setActiveIndex] = useState(1);
 
   const handlePrev = () => {
@@ -46,7 +45,7 @@ const CardStack = ({ cards, boardId }: CardStackExample) => {
     <div className="relative flex h-3/6 w-full items-center justify-center px-24">
       {cards.map((card, index) => (
         <Card
-          link={`/${boardId}/${card.id}`}
+          id={card.id}
           key={index}
           title={card.title}
           language={card.language}

@@ -4,14 +4,33 @@ import { useNavigate } from "react-router-dom";
 import "./Loggin.css";
 import daringLogo from "/logo.svg";
 import PageTransition from "@routes/PageTransition";
-import supabaseClient from "services/supaClient";
+import supabase from "services/supaClient";
+import { useEffect, useState } from "react";
+import type { Session } from "@supabase/supabase-js";
 
 const Loggin = () => {
   const navigate = useNavigate();
+  const [session, setSession] = useState<Session | null>(null)
 
-  supabaseClient.auth.onAuthStateChange(async (event) => {
+  useEffect(() => {
+    if (session) {
+      return navigate("/chat");
+    }
+
+    supabase.auth.getSession()
+      .then(( {data: { session}}) => {
+        if (session) {
+          setSession(session)
+          navigate("/chat");
+        }
+      })
+  }, [session, navigate])
+  
+  
+  supabase.auth.onAuthStateChange(async (event) => {
+
     if (event == "SIGNED_IN") {
-        navigate("/success");
+        navigate("/chat");
     }
 });
   return (
@@ -24,13 +43,13 @@ const Loggin = () => {
         />
         <header className="animate-border w-80 rounded-lg p-4">
           <Auth
-            supabaseClient={supabaseClient}
+            supabaseClient={supabase}
             appearance={{ theme: ThemeSupa }}
             theme="dark"
             providers={["github"]}
             localization={{
               variables: {
-                
+
                 sign_in: {
                   button_label: "Iniciar Sesion",
                   email_input_placeholder: "Correo Electrónico",

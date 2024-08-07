@@ -15,6 +15,7 @@
   "dependencies": {
     "@ai-sdk/openai": "^0.0.40",
     "@prisma/client": "^5.17.0",
+    "@supabase/supabase-js": "^2.45.1",
     "ai": "^3.3.0",
     "dotenv": "^16.4.5",
     "endent": "^2.1.0",

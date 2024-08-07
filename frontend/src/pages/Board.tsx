@@ -28,7 +28,7 @@ const Board = () => {
             <div className="flex h-28 items-center justify-center">
               <h2 className="items-center text-3xl font-bold">Ejemplos</h2>
             </div>
-            <CardsExample cards={board.cardsExample} boardId={boardId} />
+            <CardsExample cards={board.cardsExample}/>
           </div>
 
           {/* Columna derecha: Desafíos */}

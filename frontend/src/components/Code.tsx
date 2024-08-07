@@ -37,7 +37,7 @@ const Code = ({ children, language }: CodeProps) => {
         </CopyToClipboard>
       </div>
       <SyntaxHighlighter language={language} style={dracula}>
-        {children}
+        {String(children)}
       </SyntaxHighlighter>
     </div>
   );
