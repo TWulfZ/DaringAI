@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/16/solid";
-import Card, { CardProps as CCardProps } from "./Card";
+import Card from "./Card";
 
 interface CascadingCardsProps {
-  cards: CCardProps[];
+  cards: Example[];
 }
 
 const CardStack = ({ cards }: CascadingCardsProps) => {
@@ -45,8 +45,8 @@ const CardStack = ({ cards }: CascadingCardsProps) => {
     <div className="relative h-3/6 flex w-full items-center justify-center px-12">
       {cards.map((card, index) => (
         <Card
-          id={card.id}
-          key={card.id}
+          id={card.example_id}
+          key={card.example_id}
           title={card.title}
           language={card.language}
           code={card.code}

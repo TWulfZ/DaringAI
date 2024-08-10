@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import supabaseClient from 'services/supaClient';
+import supabaseClient from '@lib/supaClient';
 
 export const useSignOut = () => {
   const navigate = useNavigate();

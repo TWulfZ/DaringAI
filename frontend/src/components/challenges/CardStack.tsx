@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/16/solid";
-import Card, { CardProps as ECardProps } from "./Card";
+import Card from "./Card";
 
 interface CardStackExample {
-  cards: ECardProps[];
+  cards: Challenge[];
 }
 
 const CardStack = ({ cards }: CardStackExample) => {
@@ -45,8 +45,8 @@ const CardStack = ({ cards }: CardStackExample) => {
     <div className="relative flex h-3/6 w-full items-center justify-center px-24">
       {cards.map((card, index) => (
         <Card
-          id={card.id}
-          key={index}
+          id={card.challenge_id}
+          key={card.challenge_id}
           title={card.title}
           language={card.language}
           content={card.content}

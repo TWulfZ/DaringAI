@@ -19,6 +19,7 @@
       "@context/*": ["context/*"],
       "@utils/*": ["utils/*"],
       "@assets/*": ["assets/*"],
+      "@lib/*": ["lib/*"],
     },
 
     /* Bundler mode */

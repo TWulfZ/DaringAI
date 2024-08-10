@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import  { useEffect, useState } from 'react';
 import { Outlet, useNavigate, useLocation } from 'react-router-dom';
 import { Session } from '@supabase/supabase-js';
 import Header from '@components/Header/Header';
-import supabase from 'services/supaClient';
+import supabase from '@lib/supaClient';
 
-const Layout: React.FC = () => {
+const Layout = () => {
   const [session, setSession] = useState<Session | null>(null);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
@@ -32,7 +32,11 @@ const Layout: React.FC = () => {
   }, [session, loading, navigate, location]);
 
   if (loading) {
-    return <span className="loading loading-spinner text-success"></span>
+    return (
+      <div className="flex h-dvh w-full flex-col items-center justify-center">
+        <span className="loading loading-spinner text-success size-32"></span>
+      </div>
+    )
   }
 
   return (

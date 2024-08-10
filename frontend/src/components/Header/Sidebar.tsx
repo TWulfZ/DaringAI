@@ -1,12 +1,10 @@
-import { ClockIcon, ChatBubbleLeftIcon } from "@heroicons/react/24/outline";
+import { AcademicCapIcon, PlusCircleIcon, XMarkIcon } from "@heroicons/react/16/solid";
+import { ClockIcon } from "@heroicons/react/24/outline";
+import useGetHistory from "@hooks/useGetHistory";
+import { Link } from "react-router-dom";
 
 const SideBar = () => {
-  // TODO: Get all Boards from API Backend
-  const chatHistory = [
-    { id: 1, title: "Chat sobre IA" },
-    { id: 2, title: "Proyecto React" },
-    { id: 3, title: "Dudas de TypeScript" },
-  ];
+  const boardsHistoryQuery = useGetHistory();
   return (
     <>
       <div className="drawer-side z-10">
@@ -15,23 +13,35 @@ const SideBar = () => {
           aria-label="close sidebar"
           className="drawer-overlay"
         ></label>
-        <ul className="menu min-h-full w-80 bg-base-200 p-4 text-base-content">
-          <li className="menu-title mb-2 flex flex-row justify-between">
-            <img src="/logo.svg" className="size-12"/>
-            
+        <ul className="menu min-h-full w-80 bg-base-200 p-2 text-base-content">
+          <li className="menu-title mb-2 flex flex-row items-center justify-between">
+            <img src="/logo.svg" className="size-10" />
+            <label htmlFor="my-drawer" className="btn btn-ghost">
+              <XMarkIcon className="size-6" />
+            </label>
           </li>
-          <li className="menu-title flex flex-row gap-2 items-center mb-2">
-            <ClockIcon className="size-6"/> Historial de Chats
+          <Link to="/chat" className="btn btn-ghost my-1 flex items-center justify-start gap-2 text-primary-500">
+            <PlusCircleIcon className="size-6" />
+            <span>Nuevo Plan</span>
+          </Link>
+          <li />
+          <li className="menu-title mb-2 flex flex-row items-center gap-2">
+            <ClockIcon className="size-6" /> Historial de Planes
           </li>
-          {chatHistory.map((chat) => (      
-              <li key={chat.id}>
-                {/* TODO: replace href for router navigation*/}
-                <a href="#" className="flex items-center">
-                  <ChatBubbleLeftIcon className="size-6" />
-                  <span>{chat.title}</span>
-                </a>
-              </li>
-            ))}
+          {boardsHistoryQuery.isPending ? (
+            <li>Loading...</li>
+          ) : (
+            boardsHistoryQuery.data?.map((board) => (
+              <Link
+                key={board.board_id}
+                to={`/board/${board.board_id}`}
+                className="btn btn-ghost my-1 flex items-center justify-start gap-2"
+              >
+                <AcademicCapIcon className="size-6" />
+                <span>{board.title}</span>
+              </Link>
+            ))
+          )}
         </ul>
       </div>
     </>

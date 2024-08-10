@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import "./Loggin.css";
 import daringLogo from "/logo.svg";
 import PageTransition from "@routes/PageTransition";
-import supabase from "services/supaClient";
+import supabase from "@lib/supaClient";
 import { useEffect, useState } from "react";
 import type { Session } from "@supabase/supabase-js";
 

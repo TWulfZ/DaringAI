@@ -1,17 +1,14 @@
 import CardsExample from "@components/examples/CardStack";
 import CardsChallenge from "@components/challenges/CardStack";
 import PageTransition from "@routes/PageTransition";
-
 import { useParams } from "react-router-dom";
-import { getBoard } from "services/api";
-
-type BoardParams = {
-  boardId: string;
-}
+import useGetBoard from "@hooks/useGetBoard";
 
 const Board = () => {
-  const { boardId } = useParams<BoardParams>();
-  const board = getBoard(boardId);
+  const { boardId } = useParams();
+  
+  const boardQuery = useGetBoard(boardId);
+  const board = boardQuery.data;
   
   if (!board) { return <>Board not found</>; }
 
@@ -28,7 +25,7 @@ const Board = () => {
             <div className="flex h-28 items-center justify-center">
               <h2 className="items-center text-3xl font-bold">Ejemplos</h2>
             </div>
-            <CardsExample cards={board.cardsExample}/>
+            <CardsExample cards={board.cards_example}/>
           </div>
 
           {/* Columna derecha: Desafíos */}
@@ -36,7 +33,7 @@ const Board = () => {
             <div className="flex h-28 items-center justify-center">
               <h2 className="items-center text-3xl font-bold">Desafios</h2>
             </div>
-            <CardsChallenge cards={board.cardsChallenge} />
+            <CardsChallenge cards={board.cards_challenge} />
           </div>
         </div>
       </div>
