@@ -1,7 +1,5 @@
+import supabase from '@services/auth/auth.service';
 import { Request, Response, NextFunction } from 'express';
-import { createClient } from '@supabase/supabase-js';
-
-const supabase = createClient(process.env.SUPABASE_URL!, process.env.ANON_KEY!);
 
 export const authMiddleware = async (req: Request, res: Response, next: NextFunction) => {
   const token = req.headers.authorization?.split(' ')[1];

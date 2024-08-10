@@ -1,15 +1,18 @@
 import { Router } from 'express';
-import { createBoard, getBoards, /*getBoardById, updateBoard, deleteBoard*/ } from '@controllers/board.controller';
+import { createBoard, getBoards, getUserBoards, getCardChallenge, getBoardById, getCardExample } from '@controllers/board.controller';
 import { authMiddleware } from '@middlewares/auth.middleware';
 
 const router = Router();
 
 router.use(authMiddleware);
 
-router.post('/', createBoard);
+router.post('/generate', createBoard);
+router.get('/history', getUserBoards);
+router.get('/:id', getBoardById)
+router.get('/challenge/:id', getCardChallenge);
+router.get('/example/:id', getCardExample);
+
+// GET ALL INFO ABOUT BOARDS
 router.get('/', getBoards);
-// router.get('/:id', getBoardById);
-// router.put('/:id', updateBoard);
-// router.delete('/:id', deleteBoard);
 
 export default router;

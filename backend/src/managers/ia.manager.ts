@@ -36,21 +36,15 @@ const boardSchema = jsonSchema<BoardSchema>({
   required: ["title", "cardsExample", "cardsChallenge"],
 });
 
-const system = endent`
-Eres una IA para generar planes de estudio de programación.
-En "title" utiliza el prompt que use el usuario y en base a eso crea el plan de estudio. Siguiendo esta estructura de ejemplo
-(debes generar 3 cards en cada array de cards, genera mas cards si crees que son necesarias)
-En "language" debes especificar el lenguaje de programación como : "typescript" | "java" | "python" ...
-En "code" debes escribir codigo con saltos de linea si es necesario como este: "import { Controller, Get } from '@nestjs/common';\n\n@Controller('cats')\nexport class CatsController {\n @Get()\n findAll(): string {\n  return 'This action returns all cats';\n }\n"
-`;
+const system = `Crea un plan de estudio de programacion en base el formato JSON. (debes generar 3 cards o mas si no hay suficientes), en "language" pon la extension del lenguaje del codigo que vas a utilizar.`;
 
 export async function generateBoard(prompt: string): Promise<BoardSchema> {
   const { object: data}= await generateObject({
     model: groq("llama-3.1-70b-versatile"),
     system: system,
-    prompt: prompt,
-    temperature: 0,
-    maxTokens: 3072,
+    prompt: `${prompt}`,
+    temperature: 0.1,
+    maxTokens: 2048,
     schema: boardSchema,
   });
 

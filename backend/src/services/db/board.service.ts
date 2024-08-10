@@ -1,12 +1,10 @@
 
 import prisma from '@config/db';
 import { generateBoard } from '@managers/ia.manager';
-import logger from '@managers/logger.manager';
 
 export const createBoard = async (prompt: string, authorId: string) => {
 
   const board = await generateBoard(prompt);
-  logger.info(authorId);
   const { title, cardsChallenge, cardsExample } = board;
 
   return prisma.boards.create({
@@ -32,6 +30,28 @@ export const createBoard = async (prompt: string, authorId: string) => {
   });
 };
 
+
+export const getUserBoards = async (authorId: string) => {
+  return prisma.boards.findMany({
+    where: { author_id: authorId },
+    include: {
+      cards_challenge: false,
+      cards_example: false,
+    },
+  });
+};
+
+export const getBoardById = async (boardId: string) => {
+  return prisma.boards.findUnique({
+    where: { board_id: boardId },
+    include: {
+      cards_challenge: true,
+      cards_example: true,
+    },
+  })
+}
+
+// GET COMPLETE BOARDS FROM USER
 export const getBoards = async (authorId: string) => {
   return prisma.boards.findMany({
     where: { author_id: authorId },
@@ -41,3 +61,16 @@ export const getBoards = async (authorId: string) => {
     },
   });
 };
+
+// CARDS
+export const getCardChallenge = async (challengeId: string) => {
+  return prisma.cards_challenge.findUnique({
+    where: { challenge_id: challengeId },
+  });
+}
+
+export const getCardExample = async (exampleId: string) => {
+  return prisma.cards_example.findUnique({
+    where: { example_id: exampleId },
+  })
+}
