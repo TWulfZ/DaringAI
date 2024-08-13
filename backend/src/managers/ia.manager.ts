@@ -1,7 +1,6 @@
 import { BoardSchema } from "schemas/ai.schema";
 import { groq } from "@services/ia/ia.services";
 import { generateObject, jsonSchema } from "ai";
-import endent from "endent";
 
 const boardSchema = jsonSchema<BoardSchema>({
   type: "object",

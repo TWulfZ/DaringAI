@@ -11,13 +11,13 @@ const logFormat = format.combine(
     printf((info) => `[${info['timestamp']}] ${info.level}: ${info.message}`)
 );
 
-const fileRotateTransport = new DailyRotateFile({
-  filename: 'logs/%DATE%.log',
+/*const fileRotateTransport = new DailyRotateFile({
+  filename: 'logs-api/%DATE%.log',
   datePattern: 'YYYY-MM-DD',
   zippedArchive: true,
   maxSize: '20m',
   maxFiles: '14d',
-});
+});*/
 
 const consoleTransport = new transports.Console({
   format: format.combine(format.colorize(), logFormat),
@@ -35,7 +35,7 @@ const winstonService = winston.createLogger({
   levels: customLevels,
   level: 'info',
   format: logFormat,
-  transports: [fileRotateTransport, consoleTransport],
+  transports: [/*fileRotateTransport,*/ consoleTransport],
 });
 
 export default winstonService;

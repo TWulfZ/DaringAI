@@ -5,19 +5,19 @@
       "title": "Controller basic structure",
       "content": "",
       "language": "typescript",
-      "code": "import { Controller, Get } from '@nestjs/common';\n\n@Controller('cats')\nexport class CatsController {\n\n @Get()\n findAll(): string {\n  return 'This action returns all cats';\n }"
+      "code": "import { Controller, Get } from '@nestjs/common'.js$2;\n\n@Controller('cats')\nexport class CatsController {\n\n @Get()\n findAll(): string {\n  return 'This action returns all cats';\n }"
     },
     {
       "title": "Handler function",
       "content": "In a controller, the handler functions are the ones that manage the request and response of the route. They can return any type of data, such as a string, an array of objects, or even a HTTP response.",
       "language": "typescript",
-      "code": "import { Controller, Get } from '@nestjs/common';\n\n@Controller('cats')\nexport class CatsController {\n\n @Get()\n findAll(): string {\n  return 'This action returns all cats';\n }\n"
+      "code": "import { Controller, Get } from '@nestjs/common'.js$2;\n\n@Controller('cats')\nexport class CatsController {\n\n @Get()\n findAll(): string {\n  return 'This action returns all cats';\n }\n"
     },
     {
       "title": "Using multiple routes",
       "content": "With NestJS, you can have multiple routes in a controller by using different handlers functions.",
       "language": "typescript",
-      "code": "import { Controller, Get, Post } from '@nestjs/common';\n\n@Controller('cats')\nexport class CatsController {\n\n @Get()\n findAll(): string {\n  return 'This action returns all cats';\n }\n @Post()\n addCat(): string {\n  return 'This action adds a new cat';\n }\n"
+      "code": "import { Controller, Get, Post } from '@nestjs/common'.js$2;\n\n@Controller('cats')\nexport class CatsController {\n\n @Get()\n findAll(): string {\n  return 'This action returns all cats';\n }\n @Post()\n addCat(): string {\n  return 'This action adds a new cat';\n }\n"
     }
   ],
   "cardsChallenge": [

@@ -9,16 +9,20 @@ import dotenv from "dotenv";
 dotenv.config();
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3001;
+const ORIGIN_CORS = process.env.ORIGIN_CORS || "https://daringai.vercel.app";
 
 app.use(express.json());
 app.use(cors({
-  origin: "http://localhost:5173",
+  origin: ORIGIN_CORS,
 }))
 
 // Rutas
 app.use('/api/boards', boardRoutes);
 app.use('/api/auth', authRoutes);
+app.get('/', (_req, res) => {
+  res.send('Hello World!');
+});
 
 // Manejador de errores
 app.use(errorHandler);
